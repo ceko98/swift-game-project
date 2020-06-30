@@ -7,10 +7,9 @@ struct Position {
     self.x = positions[0]
     self.y = positions[1].wholeNumberValue!
   }
-  
 }
 
-class GameBoard {
+public class GameBoard {
   var positions: [Position] = []
 
   init() {
@@ -26,8 +25,8 @@ class GameBoard {
       "B6", "D6", "F6",
       "А7", "D7", "G7",
     ]
-    for pos in allPositions {
-      positions.append(Position(position: pos))
+    for p in allPositions {
+      positions.append(Position(position: p))
     }
   }
 }
