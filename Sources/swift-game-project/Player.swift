@@ -1,9 +1,11 @@
 class Player {
   let side: PlayerSide
-  private(set) var pieces: Int
+  private(set) var totalPieces: Int
+  var placedPieces: Int
 
-  init(side: PlayerSide) {
+  init(_ side: PlayerSide) {
     self.side = side
-    self.pieces = 9
-  }
+    self.totalPieces = 9
+    self.placedPieces = 0
+  } 
 }
