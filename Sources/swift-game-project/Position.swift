@@ -1,4 +1,4 @@
-struct Position {
+class Position {
   var x: Int
   var y: Int
   var side: PlayerSide
@@ -10,9 +10,15 @@ struct Position {
     }
   }
 
-  init(position: String) {
+  init(_ position: String) {
     self.x = Int(position.first!.asciiValue!) - 64
     self.y = position.last!.wholeNumberValue!
     self.side = PlayerSide.None
+  }
+}
+
+extension Position: Equatable {
+  static func ==(_ lhs: Position, _ rhs: Position) -> Bool {
+    return lhs.x == rhs.x && lhs.y == rhs.x
   }
 }

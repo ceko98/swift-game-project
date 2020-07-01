@@ -3,6 +3,43 @@ public class GameBoard {
 
   init() {
     self.populatePositions()
+
+    // var pos = Position("D1")
+    // print(self.getNeighboursOf(position: pos))
+    self.placePiece(input: "A1", side: .First)
+  }
+
+  private func getOffset(of: Int) -> Int {
+    switch of {
+      case 1, 7: return 3
+      case 2, 6: return 2
+      case 3, 4, 5: return 1
+      default: return 0;
+    }
+  }
+
+  func getNeighboursOf(position: Position) -> [Position] {
+    let offsetX = getOffset(of: position.y)
+    let offsetY = getOffset(of: position.x)
+    return positions.filter {
+      ($0.x == position.x - offsetX || $0.x == position.x + offsetX || $0.x == position.x) &&
+      ($0.y == position.y - offsetY || $0.y == position.y + offsetY || $0.y == position.y) &&
+      !($0.y == position.y && $0.x == position.x)
+    }
+  }
+
+  func placePiece(input: String, side: PlayerSide) {
+    let position = Position(input)
+    if let p = positions.first(where: { $0 == position }) {
+      p.side = side
+    } else {
+      print("Invalid position")
+    }
+  }
+
+  func isEmpty(input: String) -> Bool {
+    let position = Position(input)
+    return positions.first(where: { $0 == position })?.side == PlayerSide.None
   }
 
   func populatePositions() {
@@ -16,7 +53,7 @@ public class GameBoard {
       "A7", "D7", "G7",
     ]
     for p in allPositions {
-      positions.append(Position(position: p))
+      positions.append(Position(p))
     }
   }
 
