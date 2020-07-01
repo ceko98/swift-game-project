@@ -11,9 +11,8 @@ struct Position {
   }
 
   init(position: String) {
-    let positions = Array(position)
-    self.x = Int(positions[0].asciiValue!) - 64
-    self.y = positions[1].wholeNumberValue!
+    self.x = Int(position.first!.asciiValue!) - 64
+    self.y = position.last!.wholeNumberValue!
     self.side = PlayerSide.None
   }
 }
