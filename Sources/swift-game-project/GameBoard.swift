@@ -1,11 +1,13 @@
 struct Position {
-  var x: Character
+  var x: Int
   var y: Int
+  var side: PlayerSide
 
   init(position: String) {
     let positions = Array(position)
-    self.x = positions[0]
+    self.x = Int(positions[0].asciiValue!) - 64
     self.y = positions[1].wholeNumberValue!
+    self.side = PlayerSide.None
   }
 }
 
@@ -13,6 +15,7 @@ public class GameBoard {
   var positions: [Position] = []
 
   init() {
+    self.populatePositions()
   }
 
   func populatePositions() {
