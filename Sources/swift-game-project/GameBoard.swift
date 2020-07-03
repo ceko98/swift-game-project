@@ -3,10 +3,6 @@ public class GameBoard {
 
   init() {
     self.populatePositions()
-
-    // var pos = Position("D1")
-    // print(self.getNeighboursOf(position: pos))
-    self.placePiece(position: Position("A1"), side: .First)
   }
 
   private func getOffset(of: Int) -> Int {
@@ -29,11 +25,11 @@ public class GameBoard {
   }
 
   func placePiece(position: Position, side: PlayerSide) {
-    if let p = positions.first(where: { $0 == position }) {
-      p.side = side
-    } else {
-      print("Invalid position")
-    }
+    positions.first(where: { $0 == position })!.side = side
+  }
+
+  func hasMill(position: Position) {
+    
   }
 
   func isEmpty(position: Position) -> Bool {
@@ -64,7 +60,7 @@ public class GameBoard {
 
   func printBoard() {
     let output = """
-          A   B   C   D   E   F   H
+          A   B   C   D   E   F   G
       
       1   \(positions[0].symbol) - - - - - \(positions[1].symbol) - - - - - \(positions[2].symbol)
           |           |           |
@@ -80,6 +76,6 @@ public class GameBoard {
           |           |           |
       7   \(positions[21].symbol) - - - - - \(positions[22].symbol) - - - - - \(positions[23].symbol)
     """
-    print(output)   
+    print(output)
   }
 }

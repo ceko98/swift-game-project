@@ -3,34 +3,44 @@ class Game {
   let player1: Player
   let player2: Player
   var currentPlayer: Player
+  var previousPlayer: Player
 
   init() {
     gameBoard = GameBoard()
     player1 = Player(.First)
     player2 = Player(.Second)
     currentPlayer = player1
+    previousPlayer = player2
   }
 
   func start() {
     while !gameEnded() {
-      
+      gameBoard.printBoard()
+      playTurn()
+      swap(&currentPlayer, &previousPlayer)
     }
   }
 
-  var a: (Game) -> () -> Void = start
-
   func playTurn() {
-    let position = getValidPosition()
-    
+    if (currentPlayer.hasToMove) {
+
+    } else {
+      placeNew()
+    }
   }
 
-  func placeNew(position: String) {
-    gameBoard.placePiece(position: Position(position), side: currentPlayer.side)
+  func placeNew() {
+    var position = Position(getValidPosition())
+    while !gameBoard.isEmpty(position: position) {
+      print("Position already taken")
+      position = Position(getValidPosition())
+    }
+    gameBoard.placePiece(position: position, side: currentPlayer.side)
+    currentPlayer.placePiece()
   }
 
   func getValidPosition() -> String {
-    var input: String
-    input = readLine()!
+    var input = readLine()!
     while !gameBoard.isValid(position: input) {
       print("Invalid position")
       input = readLine()!
@@ -39,6 +49,6 @@ class Game {
   }
 
   func gameEnded() -> Bool {
-    return player1.pieces <= 2 || player1.pieces <= 2
+    return player1.totalPieces <= 2 || player1.totalPieces <= 2
   }
 }
