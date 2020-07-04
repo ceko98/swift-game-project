@@ -1,6 +1,6 @@
 class Position {
-  var x: Int
-  var y: Int
+  let x: Int
+  let y: Int
   var side: PlayerSide
   var symbol: String {
     switch self.side {

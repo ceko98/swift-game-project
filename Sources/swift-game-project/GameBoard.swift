@@ -24,12 +24,28 @@ public class GameBoard {
     }
   }
 
+  func isNeighbour(from: Position, to: Position) -> Bool {
+    return getNeighboursOf(position: from).contains(to)
+  }
+
   func placePiece(position: Position, side: PlayerSide) {
     positions.first(where: { $0 == position })!.side = side
   }
 
-  func hasMill(position: Position) {
-    
+  func hasMillAfter(position: Position, side: PlayerSide) -> Bool {
+    var xPositions = positions.filter { $0.x == position.x }
+    var yPositions = positions.filter { $0.y == position.y }
+
+    if position.y == 4 {
+      let side = position.x < 4 ? { (i: Int) -> Bool in i < 4 } : { (i: Int) -> Bool in i > 4 }
+      xPositions = xPositions.filter { side($0.x) }
+    }
+    if position.x == 4 {
+      let side = position.y < 4 ? { (i: Int) -> Bool in i < 4 } : { (i: Int) -> Bool in i > 4 }
+      yPositions = yPositions.filter { side($0.x) }
+    }
+
+    return xPositions.allSatisfy({ $0.side == side }) || yPositions.allSatisfy({ $0.side == side })
   }
 
   func isEmpty(position: Position) -> Bool {
@@ -40,6 +56,12 @@ public class GameBoard {
     return getStringPositions().contains(position)
   }
 
+  func populatePositions() {
+    for p in getStringPositions() {
+      positions.append(Position(p))
+    }
+  }
+  
   func getStringPositions() -> [String] {
     return [
       "A1", "D1", "G1",
@@ -50,12 +72,6 @@ public class GameBoard {
       "B6", "D6", "F6",
       "A7", "D7", "G7",
     ]
-  }
-
-  func populatePositions() {
-    for p in getStringPositions() {
-      positions.append(Position(p))
-    }
   }
 
   func printBoard() {
