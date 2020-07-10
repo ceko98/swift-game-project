@@ -14,7 +14,7 @@ public class GameBoard {
     }
   }
 
-  func getNeighboursOf(position: Position) -> [Position] {
+  private func getNeighboursOf(position: Position) -> [Position] {
     let offsetX = getOffset(of: position.y)
     let offsetY = getOffset(of: position.x)
     return positions.filter {
@@ -56,13 +56,13 @@ public class GameBoard {
     return getStringPositions().contains(position)
   }
 
-  func populatePositions() {
+  private func populatePositions() {
     for p in getStringPositions() {
       positions.append(Position(p))
     }
   }
-  
-  func getStringPositions() -> [String] {
+
+  private func getStringPositions() -> [String] {
     return [
       "A1", "D1", "G1",
       "B2", "D2", "F2",
