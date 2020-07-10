@@ -15,6 +15,7 @@ class Game {
       playTurn()
       swap(&currentPlayer, &previousPlayer)
     }
+    printWinner()
   }
 
   private func playTurn() {
@@ -60,20 +61,22 @@ class Game {
   }
 
   private func getValidPosition() -> Position {
+    print("Write position")
     var input = readLine()!
     while !gameBoard.isValid(position: input) {
-      print("Invalid position")
+      print("Invalid position. Write new position:")
       input = readLine()!
     }
     return Position(input)
   }
 
   private func getValidPair() -> (Position, Position) {
+    print("Write positions")
     var input = readLine()!
     var p1 = String(input.prefix(2))
     var p2 = String(input.suffix(2))
     while input.count != 4 || !gameBoard.isValid(position: p1) || !gameBoard.isValid(position: p2) {
-      print("Invalid positions")
+      print("Invalid positions. Write new positions:")
       input = readLine()!
       p1 = String(input.prefix(2))
       p2 = String(input.suffix(2))
@@ -82,6 +85,10 @@ class Game {
   }
 
   private func gameEnded() -> Bool {
-    return currentPlayer.totalPieces <= 2 || previousPlayer.totalPieces <= 2
+    return currentPlayer.totalPieces < 3
   }
+
+  private func printWinner() {
+    print("Winner: \(previousPlayer.side)")
+  } 
 }
