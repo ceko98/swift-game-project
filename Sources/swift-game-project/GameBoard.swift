@@ -35,7 +35,6 @@ public class GameBoard {
   }
 
   func hasMillAfter(position: Position, side: PlayerSide) -> Bool {
-    position.p()
     var xPositions = positions.filter { $0.x == position.x }
     var yPositions = positions.filter { $0.y == position.y }
 
@@ -46,14 +45,6 @@ public class GameBoard {
     if position.y == 4 {
       let side = position.x < 4 ? { (i: Int) -> Bool in i < 4 } : { (i: Int) -> Bool in i > 4 }
       yPositions = yPositions.filter { side($0.x) }
-    }
-    print(side)
-    for a in xPositions {
-      a.p()
-    }
-    print("--------")
-    for a in yPositions {
-      a.p()
     }
     return xPositions.allSatisfy({ $0.side == side }) || yPositions.allSatisfy({ $0.side == side })
   }
