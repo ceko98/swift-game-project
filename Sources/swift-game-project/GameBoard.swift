@@ -28,23 +28,33 @@ public class GameBoard {
     return getNeighboursOf(position: from).contains(to)
   }
 
-  func placePiece(position: Position, side: PlayerSide) {
-    positions.first(where: { $0 == position })!.side = side
+  func placePiece(position: Position, side: PlayerSide) -> Position {
+    let updatedPosition = positions.first(where: { $0 == position })
+    updatedPosition!.side = side
+    return updatedPosition!
   }
 
   func hasMillAfter(position: Position, side: PlayerSide) -> Bool {
+    position.p()
     var xPositions = positions.filter { $0.x == position.x }
     var yPositions = positions.filter { $0.y == position.y }
 
-    if position.y == 4 {
-      let side = position.x < 4 ? { (i: Int) -> Bool in i < 4 } : { (i: Int) -> Bool in i > 4 }
-      xPositions = xPositions.filter { side($0.x) }
-    }
     if position.x == 4 {
       let side = position.y < 4 ? { (i: Int) -> Bool in i < 4 } : { (i: Int) -> Bool in i > 4 }
+      xPositions = xPositions.filter { side($0.y) }
+    }
+    if position.y == 4 {
+      let side = position.x < 4 ? { (i: Int) -> Bool in i < 4 } : { (i: Int) -> Bool in i > 4 }
       yPositions = yPositions.filter { side($0.x) }
     }
-
+    print(side)
+    for a in xPositions {
+      a.p()
+    }
+    print("--------")
+    for a in yPositions {
+      a.p()
+    }
     return xPositions.allSatisfy({ $0.side == side }) || yPositions.allSatisfy({ $0.side == side })
   }
 

@@ -21,4 +21,8 @@ extension Position: Equatable {
   static func ==(_ lhs: Position, _ rhs: Position) -> Bool {
     return lhs.x == rhs.x && lhs.y == rhs.y
   }
+  
+  func p() {
+    print(self.x, self.y, self.side)
+  }
 }

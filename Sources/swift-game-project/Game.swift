@@ -38,9 +38,8 @@ class Game {
       print("Position already taken")
       position = getValidPosition()
     }
-    gameBoard.placePiece(position: position, side: currentPlayer.side)
     currentPlayer.placePiece()
-    return position
+    return gameBoard.placePiece(position: position, side: currentPlayer.side)
   }
 
   private func move() -> Position {
@@ -49,14 +48,13 @@ class Game {
       print("Cannot move there")
       (from, to) = getValidPair()
     }
-    gameBoard.placePiece(position: from, side: PlayerSide.None)
-    gameBoard.placePiece(position: to, side: currentPlayer.side)
-    return to
+    let _ = gameBoard.placePiece(position: from, side: PlayerSide.None)
+    return gameBoard.placePiece(position: to, side: currentPlayer.side)
   }
 
   private func remove() {
     let position = getValidPosition()
-    gameBoard.placePiece(position: position, side: PlayerSide.None)
+    let _ = gameBoard.placePiece(position: position, side: PlayerSide.None)
     previousPlayer.removePiece()
   }
 
