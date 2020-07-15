@@ -11,7 +11,7 @@ class Player {
 
   init(_ side: PlayerSide) {
     self.side = side
-    self.totalPieces = 4
+    self.totalPieces = 9
     self.placedPieces = 0
   }
 
